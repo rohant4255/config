@@ -47,6 +47,7 @@ values."
      (c-c++ :variables c-c++-enable-clang-support t)
      (shell :variables
             shell-default-height 30
+
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
@@ -283,6 +284,9 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup 'all
+   ;; Enable Pasting from GUI
+   x-select-enable-clipboard t
+   interprogram-paste-function 'x-cut-buffer-or-selection-value
    ))
 
 (defun dotspacemacs/user-init ()
@@ -301,6 +305,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Better scrolling
+  (define-key evil-normal-state-map "K" (kbd "<prior>"))
+  (define-key evil-normal-state-map "J" (kbd "<next>"))
+  (define-key evil-normal-state-map "H" (kbd "<home>"))
+  (define-key evil-normal-state-map "L" (kbd "<end>"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
