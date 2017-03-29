@@ -253,7 +253,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers 'relative'
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -309,8 +309,8 @@ you should place your code here."
   ;; Better scrolling
   (define-key evil-normal-state-map "K" (kbd "<prior>"))
   (define-key evil-normal-state-map "J" (kbd "<next>"))
-  (define-key evil-normal-state-map "H" (kbd "<home>"))
-  (define-key evil-normal-state-map "L" (kbd "<end>"))
+  ;;(define-key evil-normal-state-map "H" (kbd "<home>"))
+  ;;(define-key evil-normal-state-map "L" (kbd "<end>"))
   ;; Tmux style window navigation
   (global-set-key (kbd "C-j") (kbd "SPC w j"))
   (global-set-key (kbd "C-k") (kbd "SPC w k"))
@@ -318,9 +318,12 @@ you should place your code here."
   (global-set-key (kbd "C-l") (kbd "SPC w l"))
   ;; Enable Nert-Tree by default
   (neotree-toggle)
-  (neotree-dir "~/catkin_ws/src/jpl_movingobjects")
+  (neotree-dir "~/cmu/research/kdplanning/cpp_src")
   (neotree-hidden-file-toggle)
   (switch-to-buffer-other-window "*scratch*")
+  ;; Smarter navigation of buffers
+  (define-key evil-normal-state-map "H" (kbd "SPC b p"))
+  (define-key evil-normal-state-map "L" (kbd "SPC b n"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
