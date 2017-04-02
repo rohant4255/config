@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     octave
      yaml
      python
      ;; ----------------------------------------------------------------
@@ -324,6 +325,9 @@ you should place your code here."
   ;; Smarter navigation of buffers
   (define-key evil-normal-state-map "H" (kbd "SPC b p"))
   (define-key evil-normal-state-map "L" (kbd "SPC b n"))
+  ;; Font size
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease) (define-key evil-normal-state-map "L" (kbd "SPC b n"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
