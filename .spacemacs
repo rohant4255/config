@@ -46,11 +46,11 @@ values."
      git
      markdown
      org
+     multi-term
      (c-c++ :variables c-c++-enable-clang-support t)
      (shell :variables
-            shell-default-height 30
-
-            shell-default-position 'bottom)
+            shell-default-shell 'multi-term
+            shell-default-term-shell "/bin/bash")
      spell-checking
      syntax-checking
      version-control
@@ -307,16 +307,22 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; Better scrolling
-  (define-key evil-normal-state-map "K" (kbd "<prior>"))
-  (define-key evil-normal-state-map "J" (kbd "<next>"))
-  ;;(define-key evil-normal-state-map "H" (kbd "<home>"))
-  ;;(define-key evil-normal-state-map "L" (kbd "<end>"))
   ;; Tmux style window navigation
   (global-set-key (kbd "C-j") (kbd "SPC w j"))
   (global-set-key (kbd "C-k") (kbd "SPC w k"))
   (global-set-key (kbd "C-h") (kbd "SPC w h"))
   (global-set-key (kbd "C-l") (kbd "SPC w l"))
+  ;; (define-key term-raw-map (kbd "C-j") (kbd "SPC w j"))
+  ;; (define-key term-raw-map (kbd "C-k") (kbd "SPC w k"))
+
+  ;; Better scrolling
+  (define-key evil-normal-state-map "K" (kbd "<prior>"))
+  (define-key evil-normal-state-map "J" (kbd "<next>"))
+  ;; Buffer Navigation
+  (define-key evil-normal-state-map (kbd "H") (kbd "SPC b p"))
+  (define-key evil-normal-state-map (kbd "L") (kbd "SPC b n"))
+  ;; Multi-term
+  (global-set-key (kbd "M-t") 'multi-term)
   ;; Enable Nert-Tree by default
   (neotree-toggle)
   (neotree-dir "~/cmu/research/kdplanning/cpp_src")
