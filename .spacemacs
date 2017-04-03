@@ -334,6 +334,10 @@ you should place your code here."
   ;; Font size
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease) (define-key evil-normal-state-map "L" (kbd "SPC b n"))
+  ;; Bind clang-format-buffer to tab on the c++-mode only:
+  (add-hook 'c++-mode-hook 'clang-format-bindings)
+  (defun clang-format-bindings ()
+    (define-key c++-mode-map [tab] 'clang-format-buffer))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
