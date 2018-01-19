@@ -55,6 +55,7 @@ values."
      syntax-checking
      version-control
      themes-megapack-packages
+     latex
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -316,8 +317,10 @@ you should place your code here."
   (global-set-key (kbd "C-k") (kbd "SPC w k"))
   (global-set-key (kbd "C-h") (kbd "SPC w h"))
   (global-set-key (kbd "C-l") (kbd "SPC w l"))
-  ;; (define-key term-raw-map (kbd "C-j") (kbd "SPC w j"))
-  ;; (define-key term-raw-map (kbd "C-k") (kbd "SPC w k"))
+  (define-key evil-normal-state-map (kbd "C-j") (kbd "SPC w j"))
+  (define-key evil-normal-state-map (kbd "C-k") (kbd "SPC w k"))
+  (define-key evil-normal-state-map (kbd "C-h") (kbd "SPC w h"))
+  (define-key evil-normal-state-map (kbd "C-l") (kbd "SPC w l"))
 
   ;; Better scrolling
   (define-key evil-normal-state-map "K" (kbd "<prior>"))
@@ -327,7 +330,7 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "L") (kbd "SPC b n"))
   ;; Enable Nert-Tree by default
   (neotree-toggle)
-  (neotree-dir "~/cmu/kdp/KDPlanning-ompl")
+  ;; (neotree-dir "~/catkin_wd/src/research/kdplanning/cpp_src")
   (neotree-hidden-file-toggle)
   ;; (switch-to-buffer-other-window "*scratch*")
   ;; Smarter navigation of buffers
@@ -372,6 +375,5 @@ you should place your code here."
     "m g h" 'rtags-print-class-hierarchy
     "m g a" 'rtags-print-source-arguments))
   )
-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
