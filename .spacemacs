@@ -54,7 +54,6 @@ values."
      spell-checking
      syntax-checking
      version-control
-     themes-megapack-packages
      latex
      )
    ;; List of additional packages that will be installed without being
@@ -64,6 +63,8 @@ values."
    dotspacemacs-additional-packages '(
                                       rtags
                                       cmake-ide
+                                      themes-megapack-packages
+                                      doom-themes
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -136,8 +137,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         gotham)
+   ;; dotspacemacs-themes '(doom-city-lights
+   ;;                      )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -297,6 +298,8 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
+  (setq-default
+   dotspacemacs-themes '(monokai))
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
