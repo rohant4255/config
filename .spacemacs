@@ -342,7 +342,8 @@ you should place your code here."
   ;; Bind clang-format-buffer to tab on the c++-mode only:
   (add-hook 'c++-mode-hook 'clang-format-bindings)
   (defun clang-format-bindings ()
-    (define-key c++-mode-map [tab] 'clang-format-buffer))
+    (define-key c++-mode-map [tab] 'clang-format-buffer)
+    (define-key c-mode-map [tab] 'clang-format-buffer))
   (dolist (mode '(c-mode c++-mode))
   (evil-leader/set-key-for-mode mode
     "m g ." 'rtags-find-symbol-at-point
