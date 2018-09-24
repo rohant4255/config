@@ -31,9 +31,11 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     python
+     ipython-notebook
      octave
      yaml
-     python
+     ;; (python :variables python-enable-yapf-format-on-save t)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -46,7 +48,7 @@ values."
      git
      markdown
      org
-     multi-term
+     shell
      (c-c++ :variables c-c++-enable-clang-support t)
      (shell :variables
             shell-default-shell 'multi-term
@@ -138,11 +140,11 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("Ubuntu Mono"
+                               :size 18
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 0.8)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -290,7 +292,8 @@ values."
    ;; Enable Pasting from GUI
    x-select-enable-clipboard t
    interprogram-paste-function 'x-cut-buffer-or-selection-value
-   ))
+   )
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -308,6 +311,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Todo list with org
+  (with-eval-after-load 'org (setq org-agenda-files
+                                   (file-expand-wildcards "~/Dropbox/org/current/*")))
+  (with-eval-after-load 'org (setq org-agenda-window-setup
+                                   'current-window))
   ;; Tmux style window navigation
   (global-set-key (kbd "C-j") (kbd "SPC w j"))
   (global-set-key (kbd "C-k") (kbd "SPC w k"))
@@ -318,6 +326,10 @@ you should place your code here."
   (define-key evil-normal-state-map (kbd "C-h") (kbd "SPC w h"))
   (define-key evil-normal-state-map (kbd "C-l") (kbd "SPC w l"))
 
+  ;; Priority Org-Mode Todos
+  (define-key evil-normal-state-map (kbd "M-P") 'org-priority-up)
+  (define-key evil-normal-state-map (kbd "M-p") 'org-priority-down)
+
   ;; Better scrolling
   (define-key evil-normal-state-map "K" (kbd "<prior>"))
   (define-key evil-normal-state-map "J" (kbd "<next>"))
@@ -327,10 +339,10 @@ you should place your code here."
   ;; Multi-term
   (global-set-key (kbd "M-t") 'multi-term)
   ;; Enable Nert-Tree by default
-  (neotree-toggle)
-  ;; (neotree-dir "~/catkin_wd/src/research/kdplanning/cpp_src")
-  (neotree-hidden-file-toggle)
-  (switch-to-buffer-other-window "*scratch*")
+  (neotree-show)
+  ;; (neotree-dir "~/catkin_build/src")
+  ;; (neotree-hidden-file-toggle)
+  ;; (switch-to-buffer-other-window "*scratch*")
   ;; Smarter navigation of buffers
   (define-key evil-normal-state-map "H" (kbd "SPC b p"))
   (define-key evil-normal-state-map "L" (kbd "SPC b n"))
