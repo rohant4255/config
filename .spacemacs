@@ -33,6 +33,7 @@ values."
    '(
      python
      ipython-notebook
+     gtags
      octave
      yaml
      ;; (python :variables python-enable-yapf-format-on-save t)
@@ -48,7 +49,6 @@ values."
      git
      markdown
      org
-     shell
      (c-c++ :variables c-c++-enable-clang-support t)
      (shell :variables
             shell-default-shell 'multi-term
@@ -62,7 +62,12 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      rtags
+                                      cmake-ide
+                                      themes-megapack-packages
+                                      doom-themes
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -134,8 +139,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         gotham)
+   ;; dotspacemacs-themes '(doom-city-lights
+   ;;                      )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -296,6 +301,8 @@ values."
   )
 
 (defun dotspacemacs/user-init ()
+  (setq-default
+   dotspacemacs-themes '(monokai))
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
@@ -336,8 +343,6 @@ you should place your code here."
   ;; Buffer Navigation
   (define-key evil-normal-state-map (kbd "H") (kbd "SPC b p"))
   (define-key evil-normal-state-map (kbd "L") (kbd "SPC b n"))
-  ;; Multi-term
-  (global-set-key (kbd "M-t") 'multi-term)
   ;; Enable Nert-Tree by default
   (neotree-show)
   ;; (neotree-dir "~/catkin_build/src")
@@ -348,11 +353,43 @@ you should place your code here."
   (define-key evil-normal-state-map "L" (kbd "SPC b n"))
   ;; Font size
   (define-key global-map (kbd "C-+") 'text-scale-increase)
-  (define-key global-map (kbd "C--") 'text-scale-decrease) (define-key evil-normal-state-map "L" (kbd "SPC b n"))
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
   ;; Bind clang-format-buffer to tab on the c++-mode only:
   (add-hook 'c++-mode-hook 'clang-format-bindings)
   (defun clang-format-bindings ()
-    (define-key c++-mode-map [tab] 'clang-format-buffer))
+    (define-key c++-mode-map [tab] 'clang-format-buffer)
+    (define-key c-mode-map [tab] 'clang-format-buffer))
+  (dolist (mode '(c-mode c++-mode))
+  (evil-leader/set-key-for-mode mode
+    "m g ." 'rtags-find-symbol-at-point
+    "m g ," 'rtags-find-references-at-point
+    "m g v" 'rtags-find-virtuals-at-point
+    "m g V" 'rtags-print-enum-value-at-point
+    "m g /" 'rtags-find-all-references-at-point
+    "m g Y" 'rtags-cycle-overlays-on-screen
+    "m g >" 'rtags-find-symbol
+    "m g <" 'rtags-find-references
+    "m g [" 'rtags-location-stack-back
+    "m g ]" 'rtags-location-stack-forward
+    "m g D" 'rtags-diagnostics
+    "m g G" 'rtags-guess-function-at-point
+    "m g p" 'rtags-set-current-project
+    "m g P" 'rtags-print-dependencies
+    "m g e" 'rtags-reparse-file
+    "m g E" 'rtags-preprocess-file
+    "m g R" 'rtags-rename-symbol
+    "m g M" 'rtags-symbol-info
+    "m g S" 'rtags-display-summary
+    "m g O" 'rtags-goto-offset
+    "m g ;" 'rtags-find-file
+    "m g F" 'rtags-fixit
+    "m g L" 'rtags-copy-and-print-current-location
+    "m g X" 'rtags-fix-fixit-at-point
+    "m g B" 'rtags-show-rtags-buffer
+    "m g I" 'rtags-imenu
+    "m g T" 'rtags-taglist
+    "m g h" 'rtags-print-class-hierarchy
+    "m g a" 'rtags-print-source-arguments))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
