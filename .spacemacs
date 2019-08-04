@@ -49,7 +49,9 @@ values."
      git
      markdown
      org
-     (c-c++ :variables c-c++-enable-clang-support t)
+     (c-c++ :variables
+            ;; c-c++-enable-clang-support t
+            c-c++-backend 'rtags)
      (shell :variables
             shell-default-shell 'multi-term
             shell-default-term-shell "/bin/bash")
