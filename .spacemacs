@@ -32,7 +32,10 @@ values."
    dotspacemacs-configuration-layers
    '(
      html
-     javascript
+     (javascript :variables
+                 ;; Set indent level for javascript
+                 js2-basic-offset 2
+                 js-indent-level 2)
      python
      ipython-notebook
      gtags
@@ -404,7 +407,7 @@ you should place your code here."
   ;; (setq-default message-log-max nil)
   (kill-buffer "*Messages*")
   ;; Disabled *Completions*
-  (add-hook 'minibuffer-exit-hook 
+  (add-hook 'minibuffer-exit-hook
             '(lambda ()
                (let ((buffer "*Completions*"))
                  (and (get-buffer buffer)
@@ -418,11 +421,13 @@ you should place your code here."
         (kill-buffer "*scratch*")))
   (add-hook 'after-change-major-mode-hook 'remove-scratch-buffer)
 
- ;; Don't show *Buffer list* when opening multiple files at the same time.
+  ;; Don't show *Buffer list* when opening multiple files at the same time.
   (setq inhibit-startup-buffer-menu t)
 
   ;; Show only one active window when opening multiple files at the same time.
   (add-hook 'window-setup-hook 'delete-other-windows)
+  (use-package org
+     :bind (:map spacemacs-org-mode-map-root-map ("M-RET" . nil)))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
